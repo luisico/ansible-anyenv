@@ -1,0 +1,9 @@
+---
+# Installation directory
+anyenv_root: '$HOME/.anyenv'
+
+# URL or anyenv repo
+anyenv_repo: https://github.com/anyenv/anyenv
+
+# Anyenv version to install
+anyenv_version: master

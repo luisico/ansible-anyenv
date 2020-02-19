@@ -1,0 +1,17 @@
+---
+- name: Install anyenv from git
+  git: dest='{{anyenv_root}}' repo='{{anyenv_repo}}' version='{{anyenv_version}}'
+
+- name: Anyenv bash profile
+  template: dest='~/.anyenv_bash' src=bashrc.j2
+
+- name: Source anyenv profile to bash_profile
+  lineinfile: path='~/.bash_profile' line='source ~/.anyenv_bash' create=yes
+
+- name: Install anyenv manifest
+  command: '{{anyenv_root}}/bin/anyenv install --force-init'
+  register: anyenv__r_manifest
+  failed_when:
+    - anyenv__r_manifest.rc > 0
+    - '"Manifest directory exists:" not in anyenv__r_manifest.stderr'
+  changed_when: anyenv__r_manifest.rc == 0
