@@ -15,3 +15,8 @@
     - anyenv__r_manifest.rc > 0
     - '"Manifest directory exists:" not in anyenv__r_manifest.stderr'
   changed_when: anyenv__r_manifest.rc == 0
+
+- name: Install additional packages
+  yum: name={{anyenv_packages}} state=present
+  become: yes
+  become_user: root

@@ -7,3 +7,6 @@ anyenv_repo: https://github.com/anyenv/anyenv
 
 # Anyenv version to install
 anyenv_version: master
+
+# Packages to install (i.e. **env dependencies)
+anyenv_packages: []
