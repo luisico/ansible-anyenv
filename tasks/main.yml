@@ -1,15 +1,23 @@
 ---
 - name: Install anyenv from git
-  git: dest='{{anyenv_root}}' repo='{{anyenv_repo}}' version='{{anyenv_version}}'
+  git:
+    dest: '{{ anyenv_root }}'
+    repo: '{{ anyenv_repo }}'
+    version: '{{ anyenv_version }}'
 
-- name: Anyenv bash profile
-  template: dest='~/.anyenv_bash' src=bashrc.j2
+- name: Anyenv bash profile   # noqa risky-file-permissions
+  template:
+    dest: '~/.anyenv_bash'
+    src: bashrc.j2
 
-- name: Source anyenv profile to bash_profile
-  lineinfile: path='~/.bash_profile' line='source ~/.anyenv_bash' create=yes
+- name: Source anyenv profile to bash_profile   # noqa risky-file-permissions
+  lineinfile:
+    path: '~/.bash_profile'
+    line: 'source ~/.anyenv_bash'
+    create: true
 
 - name: Install anyenv manifest
-  command: '{{anyenv_root}}/bin/anyenv install --force-init'
+  command: '{{ anyenv_root }}/bin/anyenv install --force-init'
   register: anyenv__r_manifest
   failed_when:
     - anyenv__r_manifest.rc > 0
@@ -17,6 +25,8 @@
   changed_when: anyenv__r_manifest.rc == 0
 
 - name: Install additional packages
-  yum: name={{anyenv_packages}} state=present
-  become: yes
+  yum:
+    name: '{{ anyenv_packages }}'
+    state: present
+  become: true
   become_user: root

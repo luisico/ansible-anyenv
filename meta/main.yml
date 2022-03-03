@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: anyenv
   author: Luis Gracia
   description: Install Anyenv
   license: MIT
